@@ -5,12 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from setup_db import Pool
 
-# Database configuration
 DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Uniswap Subgraph URL
 UNISWAP_SUBGRAPH_URL = "https://gateway-arbitrum.network.thegraph.com/api/5fd299b87186a191321be76cc1c61ecc/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV"
 
 def fetch_data():
@@ -67,11 +65,9 @@ def job():
     store_data(data)
     print("Data has been fetched and stored successfully.")
 
-# Schedule the job every 30 minutes
 schedule.every(30).minutes.do(job)
 
 if __name__ == "__main__":
-    # Run the job once at startup for immediate feedback
     print("Running initial data fetch...")
     job()
     
